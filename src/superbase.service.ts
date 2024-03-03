@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-@Injectable()
-export class SuperbaseService {
+class SuperbaseService {
   private readonly supabase: SupabaseClient;
 
   constructor() {
@@ -13,7 +11,8 @@ export class SuperbaseService {
   }
 
   getClient(): SupabaseClient {
-    console.log('huy check: ', this.supabase);
     return this.supabase;
   }
 }
+
+export default new SuperbaseService();

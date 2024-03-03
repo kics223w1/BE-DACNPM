@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { SuperbaseService } from './superbase.service';
+import { ProductController } from './controllers/product.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [SuperbaseService], // Add SuperbaseService to the providers array
+  controllers: [ProductController],
 })
 export class AppModule {}
