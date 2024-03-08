@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { Review } from '../type';
 import superbaseService from 'src/superbase.service';
+import { TABLE } from 'src/constant';
 
-@Controller('review')
+@Controller('reviews')
 export class ReviewController {
   constructor() {}
 
@@ -11,7 +12,7 @@ export class ReviewController {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()
-      .from('Review')
+      .from(TABLE.REVIEW)
       .select('*');
 
     if (response.error) {

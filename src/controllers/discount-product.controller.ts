@@ -1,24 +1,24 @@
 import { Controller, Get } from '@nestjs/common';
-import { Product } from '../type';
+import { Discount_Product } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
 
-@Controller('products')
-export class ProductController {
+@Controller('discount-products')
+export class DiscountProductController {
   constructor() {}
 
   @Get()
-  async getHello(): Promise<Product[]> {
+  async getHello(): Promise<Discount_Product[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()
-      .from(TABLE.PRODUCT)
+      .from(TABLE.DISCOUNT_PRODUCT)
       .select('*');
 
     if (response.error) {
       return [];
     }
-    const products = response.data as Product[];
-    return products;
+    const discountProducts = response.data as Discount_Product[];
+    return discountProducts;
   }
 }
