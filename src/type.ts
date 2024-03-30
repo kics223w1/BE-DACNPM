@@ -3,7 +3,6 @@ export type Product = {
   name: string;
   ranking: number;
   delivery_des: string;
-  pickup_des: string;
   price: number;
   review_ids: string[];
   description: string;
@@ -11,7 +10,6 @@ export type Product = {
   small_number: number;
   medium_number: number;
   large_number: number;
-  weights: number[];
 };
 export type Discount_Product = {
   id: number;
@@ -38,4 +36,13 @@ export type User = {
   full_name: string;
   addresses: string[];
   payment_info: string;
-}
+};
+
+export type Bill = {
+  id: string;
+  created_at: string;
+  id_user: number;
+  id_products: number[];
+  total_price: number;
+  product_prices: number[];
+};

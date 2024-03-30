@@ -3,6 +3,7 @@ import { ProductController } from './controllers/product.controller';
 import { ReviewController } from './controllers/review.controller';
 import { DiscountProductController } from './controllers/discount-product.controller';
 import { UserController } from './controllers/user.controller';
+import { BillController } from './controllers/bill.controller';
 
 @Module({
   imports: [],
@@ -11,6 +12,7 @@ import { UserController } from './controllers/user.controller';
     ReviewController,
     DiscountProductController,
     UserController,
+    BillController,
   ],
 })
 export class AppModule {}

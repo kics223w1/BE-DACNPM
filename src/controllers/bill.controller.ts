@@ -1,35 +1,33 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { User } from '../type';
+import { Bill } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
 
-@Controller('users')
-export class UserController {
+@Controller('bills')
+export class BillController {
   constructor() {}
 
   @Get()
-  async getHello(): Promise<User[]> {
+  async getHello(): Promise<Bill[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()
-      .from(TABLE.USER)
+      .from(TABLE.BILL)
       .select('*');
 
     if (response.error) {
       return [];
     }
-    const users = response.data as User[];
-    return users;
+    const bills = response.data as Bill[];
+    return bills;
   }
 
   @Post()
-  async createUser(
-    @Body() newUser: { account: string; password: string; full_name: string },
-  ): Promise<string> {
+  async createUser(@Body() newBill: Bill): Promise<string> {
     const response = await superbaseService
       .getClient()
-      .from(TABLE.USER)
-      .insert(newUser);
+      .from(TABLE.BILL)
+      .insert(newBill);
 
     if (response.error) {
       throw new Error(`${response.error.message}`);

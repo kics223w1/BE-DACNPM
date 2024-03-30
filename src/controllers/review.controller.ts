@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { Review } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
@@ -20,5 +20,19 @@ export class ReviewController {
     }
     const reviews = response.data as Review[];
     return reviews;
+  }
+
+  @Post()
+  async createReview(@Body() review: Review): Promise<string> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.REVIEW)
+      .insert(review);
+
+    if (response.error) {
+      throw new Error(`${response.error.message}`);
+    }
+
+    return 'OK';
   }
 }
