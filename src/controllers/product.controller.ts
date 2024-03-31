@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { Product } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
@@ -20,5 +20,36 @@ export class ProductController {
     }
     const products = response.data as Product[];
     return products;
+  }
+
+  @Post()
+  async createProduct(@Body() newProduct: Product): Promise<Product> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.PRODUCT)
+      .insert([newProduct]);
+
+    if (response.error || !response.data) {
+      throw new Error('Failed to create product.');
+    }
+
+    const createdProduct = response.data[0] as Product;
+    return createdProduct;
+  }
+
+  @Put()
+  async updateProduct(@Body() updatedProduct: Product): Promise<string> {
+    const obj = JSON.parse(JSON.stringify(updatedProduct));
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.PRODUCT)
+      .update(obj)
+      .eq('id', obj.id);
+
+    if (response.error) {
+      throw new Error(`${response.error}`);
+    }
+
+    return 'OK';
   }
 }

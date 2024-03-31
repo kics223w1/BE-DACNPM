@@ -3,7 +3,6 @@ export type Product = {
   name: string;
   ranking: number;
   delivery_des: string;
-  pickup_des: string;
   price: number;
   review_ids: string[];
   description: string;
@@ -11,7 +10,6 @@ export type Product = {
   small_number: number;
   medium_number: number;
   large_number: number;
-  weights: number[];
 };
 export type Discount_Product = {
   id: number;
@@ -38,4 +36,37 @@ export type User = {
   full_name: string;
   addresses: string[];
   payment_info: string;
-}
+};
+
+export type Bill = {
+  id: string;
+  created_at: string;
+  id_user: number;
+  id_products: number[];
+  total_price: number;
+  product_prices: number[];
+};
+
+export type UserInformation = {
+  id: string;
+  id_user: string;
+  email: string;
+  phone_number: string;
+  address: string;
+  full_name: string;
+};
+
+export type PaymentInformation = {
+  id: string;
+  id_user: string;
+  created_at: string;
+  full_name: string;
+  card_number: string;
+  expiration_date: string;
+  cvv: string;
+};
+
+export type OmitTwo<T, K1 extends keyof T, K2 extends keyof T> = Omit<
+  Omit<T, K1>,
+  K2
+>;
