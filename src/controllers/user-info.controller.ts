@@ -7,13 +7,15 @@ import { TABLE } from 'src/constant';
 export class UserInformationController {
   constructor() {}
 
-  @Get(':id')
-  async getUserById(@Param('id') id: string): Promise<UserInformation | null> {
+  @Get(':id_user')
+  async getUserById(
+    @Param('id_user') id_user: string,
+  ): Promise<UserInformation | null> {
     const response = await superbaseService
       .getClient()
       .from(TABLE.USER_INFO)
       .select('*')
-      .eq('id', id)
+      .eq('id_user', id_user)
       .single();
 
     if (response.error) {
