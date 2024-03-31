@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { User } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
@@ -6,6 +6,22 @@ import { TABLE } from 'src/constant';
 @Controller('users')
 export class UserController {
   constructor() {}
+
+  @Get(':id')
+  async getUserById(@Param('id') id: string): Promise<User | null> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.USER)
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (response.error) {
+      return null;
+    }
+    const user = response.data as User;
+    return user;
+  }
 
   @Get()
   async getHello(): Promise<User[]> {

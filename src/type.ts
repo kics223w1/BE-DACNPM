@@ -46,3 +46,27 @@ export type Bill = {
   total_price: number;
   product_prices: number[];
 };
+
+export type UserInformation = {
+  id: string;
+  id_user: string;
+  email: string;
+  phone_number: string;
+  address: string;
+  full_name: string;
+};
+
+export type PaymentInformation = {
+  id: string;
+  id_user: string;
+  created_at: string;
+  full_name: string;
+  card_number: string;
+  expiration_date: string;
+  cvv: string;
+};
+
+export type OmitTwo<T, K1 extends keyof T, K2 extends keyof T> = Omit<
+  Omit<T, K1>,
+  K2
+>;
