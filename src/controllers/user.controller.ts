@@ -53,4 +53,24 @@ export class UserController {
 
     return 'OK';
   }
+
+  @Post(':account')
+  async getUserByAccount(
+    @Param('account') account: string,
+    @Body() body: { password: string },
+  ): Promise<User | null> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.USER)
+      .select('*')
+      .eq('account', account)
+      .eq('password', body.password)
+      .single();
+
+    if (response.error) {
+      return null;
+    }
+    const user = response.data as User;
+    return user;
+  }
 }
