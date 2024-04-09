@@ -10,6 +10,7 @@ export type Product = {
   small_number: number;
   medium_number: number;
   large_number: number;
+  image_src: string;
 };
 export type Discount_Product = {
   id: number;
