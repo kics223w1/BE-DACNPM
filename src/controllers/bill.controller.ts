@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Bill } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
@@ -20,6 +20,21 @@ export class BillController {
     }
     const bills = response.data as Bill[];
     return bills;
+  }
+
+  @Get(':id_user')
+  async getInfoByIdUSer(@Param('id_user') id: string): Promise<Bill[] | []> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.BILL)
+      .select('*')
+      .eq('id_user', id);
+
+    if (response.error) {
+      return null;
+    }
+    const data = response.data as Bill[];
+    return data;
   }
 
   @Post()

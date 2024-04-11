@@ -10,18 +10,17 @@ export class PaymentInformationController {
   @Get(':id_user')
   async getInfoByIdUSer(
     @Param('id_user') id: string,
-  ): Promise<PaymentInformation | null> {
+  ): Promise<PaymentInformation[] | []> {
     const response = await superbaseService
       .getClient()
       .from(TABLE.PAYMENT_INFO)
       .select('*')
-      .eq('id_user', id)
-      .single();
+      .eq('id_user', id);
 
     if (response.error) {
       return null;
     }
-    const data = response.data as PaymentInformation;
+    const data = response.data as PaymentInformation[];
     return data;
   }
 
@@ -41,9 +40,7 @@ export class PaymentInformationController {
   }
 
   @Post()
-  async createInfo(
-    @Body() newRow: OmitTwo<PaymentInformation, 'id', 'created_at'>,
-  ): Promise<string> {
+  async createPaymentInfo(@Body() newRow: PaymentInformation): Promise<string> {
     const response = await superbaseService
       .getClient()
       .from(TABLE.PAYMENT_INFO)
