@@ -22,20 +22,21 @@ export class ReviewController {
     return reviews;
   }
 
-  @Get(':id')
-  async getSpecificReview(@Param('id') id: string): Promise<Review | null> {
+  @Get(':id_product')
+  async getSpecificReview(
+    @Param('id_product') id_product: string,
+  ): Promise<Review[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()
       .from(TABLE.REVIEW)
       .select('*')
-      .eq('id', id)
-      .single();
+      .eq('id_product', id_product);
 
     if (response.error) {
       return null;
     }
-    const reviews = response.data as Review;
+    const reviews = response.data as Review[];
     return reviews;
   }
 
