@@ -70,7 +70,26 @@ export class UserController {
     if (response.error) {
       return null;
     }
+
     const user = response.data as User;
-    return user;
+    const responseUserInfo = await superbaseService
+      .getClient()
+      .from(TABLE.USER_INFO)
+      .select('*')
+      .eq('id_user', user.id_user)
+      .single();
+
+    const responsePaymentInfo = await superbaseService
+      .getClient()
+      .from(TABLE.PAYMENT_INFO)
+      .select('*')
+      .eq('id_user', user.id_user)
+      .single();
+
+    return {
+      ...user,
+      ...responseUserInfo.data,
+      ...responsePaymentInfo.data,
+    };
   }
 }

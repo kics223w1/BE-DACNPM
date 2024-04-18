@@ -28,7 +28,7 @@ export type Review = {
 };
 
 export type User = {
-  id: number;
+  id_user: number;
   created_at: string;
   account: string;
   password: string;

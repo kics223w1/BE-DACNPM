@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Bill } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
+import { Z_BINARY } from 'zlib';
 
 @Controller('bills')
 export class BillController {
@@ -22,8 +23,26 @@ export class BillController {
     return bills;
   }
 
+  @Get(':id_user')
+  async getBillsByUserID(@Param('id_user') id_user: string): Promise<Bill[]> {
+    // Example: Query data from a table
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.BILL)
+      .select('*')
+      .eq('id_user', id_user);
+
+    if (response.error) {
+      return [];
+    }
+    const bills = response.data as Bill[];
+    return bills;
+  }
+
   @Post()
   async createUser(@Body() newBill: Bill): Promise<string> {
+    console.log(newBill);
+
     const response = await superbaseService
       .getClient()
       .from(TABLE.BILL)
