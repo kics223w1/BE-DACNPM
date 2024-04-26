@@ -23,18 +23,16 @@ export class ProductController {
   }
 
   @Post()
-  async createProduct(@Body() newProduct: Product): Promise<Product> {
+  async createProduct(@Body() newProduct: Product): Promise<string> {
     const response = await superbaseService
       .getClient()
       .from(TABLE.PRODUCT)
-      .insert([newProduct]);
+      .insert(newProduct);
 
-    if (response.error || !response.data) {
-      throw new Error('Failed to create product.');
+    if (response.error) {
+      throw new Error(`Failed to create product ${response.error}`);
     }
-
-    const createdProduct = response.data[0] as Product;
-    return createdProduct;
+    return 'Created';
   }
 
   @Put()
