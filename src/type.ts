@@ -4,9 +4,9 @@ export type Product = {
   ranking: number;
   delivery_des: string;
   price: number;
-  review_ids: string[];
+  review_ids: number[];
   description: string;
-  similar_product_ids: string[];
+  similar_product_ids: number[];
   small_number: number;
   medium_number: number;
   large_number: number;
