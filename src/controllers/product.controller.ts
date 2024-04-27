@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Product } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
@@ -27,12 +35,27 @@ export class ProductController {
     const response = await superbaseService
       .getClient()
       .from(TABLE.PRODUCT)
-      .insert(newProduct);
+      .insert([newProduct]);
 
     if (response.error) {
       throw new Error(`Failed to create product ${response.error}`);
     }
+
     return 'Created';
+  }
+
+  @Delete(':id')
+  async deleteProduct(@Param('id') id_product: string): Promise<string> {
+    const response = await superbaseService
+      .getClient()
+      .from(TABLE.PRODUCT)
+      .delete()
+      .eq('id', id_product);
+
+    if (response.error) {
+      throw new Error(`Failed to delete product ${response.error}`);
+    }
+    return 'Deleted';
   }
 
   @Put()
@@ -48,6 +71,6 @@ export class ProductController {
       throw new Error(`${response.error}`);
     }
 
-    return 'OK';
+    return 'Updated';
   }
 }
