@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Bill } from '../type';
 import superbaseService from 'src/superbase.service';
 import { TABLE } from 'src/constant';
-import { Z_BINARY } from 'zlib';
 
 @Controller('bills')
 export class BillController {
