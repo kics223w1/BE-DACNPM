@@ -8,7 +8,7 @@ export class ReviewController {
   constructor() {}
 
   @Get()
-  async getHello(): Promise<Review[]> {
+  async getAll(): Promise<Review[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()

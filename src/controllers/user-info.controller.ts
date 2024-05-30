@@ -26,7 +26,7 @@ export class UserInformationController {
   }
 
   @Get()
-  async getHello(): Promise<UserInformation[]> {
+  async getAll(): Promise<UserInformation[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()

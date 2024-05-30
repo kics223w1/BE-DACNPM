@@ -16,7 +16,7 @@ export class ProductController {
   constructor() {}
 
   @Get()
-  async getHello(): Promise<Product[]> {
+  async getAll(): Promise<Product[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()

@@ -39,7 +39,7 @@ export class BillController {
   }
 
   @Post()
-  async createUser(@Body() newBill: Bill): Promise<string> {
+  async createBill(@Body() newBill: Bill): Promise<string> {
     console.log(newBill);
 
     const response = await superbaseService

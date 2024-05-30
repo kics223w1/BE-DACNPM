@@ -26,7 +26,7 @@ export class PaymentInformationController {
   }
 
   @Get()
-  async getHello(): Promise<PaymentInformation[]> {
+  async getAll(): Promise<PaymentInformation[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()

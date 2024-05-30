@@ -24,7 +24,7 @@ export class UserController {
   }
 
   @Get()
-  async getHello(): Promise<User[]> {
+  async getAll(): Promise<User[]> {
     // Example: Query data from a table
     const response = await superbaseService
       .getClient()
