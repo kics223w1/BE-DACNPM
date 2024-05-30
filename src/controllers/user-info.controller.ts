@@ -8,7 +8,7 @@ export class UserInformationController {
   constructor() {}
 
   @Get(':id_user')
-  async getUserById(
+  async getUserInfoById(
     @Param('id_user') id_user: string,
   ): Promise<UserInformation | null> {
     const response = await superbaseService
